@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     backgroundColor: "gray",
   },
-  userImage: {
+  userAvatar: {
     marginRight: 20,
     height: 100,
     width: 100,
