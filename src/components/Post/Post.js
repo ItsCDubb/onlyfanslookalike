@@ -1,15 +1,22 @@
 import { Image, Text, View } from "react-native";
 import { AntDesign, Entypo, FontAwesome5 } from "@expo/vector-icons";
+import { useEffect, useState } from "react";
+import { DataStore } from "aws-amplify";
+import { User } from "../../models";
 import styles from "./styles";
 
 const Post = ({ post }) => {
+  const [user, setUser] = useState();
+  useEffect(() => {
+    DataStore.query(User, post.userID).then(setUser);
+  }, []);
   return (
     <View style={styles.postPageContainer}>
       <View style={styles.postContainer}>
-        <Image src={post.User.avatar} style={styles.avatar} />
+        <Image src={user?.avatar} style={styles.avatar} />
         <View>
-          <Text style={styles.name}>{post.User.name}</Text>
-          <Text style={styles.postUserHandle}>@{post.User.handle}</Text>
+          <Text style={styles.name}>{user?.name}</Text>
+          <Text style={styles.postUserHandle}>@{user?.handle}</Text>
         </View>
         <View style={styles.timeContainer}>
           <Text style={styles.timeText}>3 hours ago</Text>
@@ -17,7 +24,7 @@ const Post = ({ post }) => {
         </View>
       </View>
       <Text style={styles.description}>{post.text}</Text>
-      <Image src={post.image} style={styles.postImage} />
+      {post.image && <Image src={post.image} style={styles.postImage} />}
       <View style={styles.postIcons}>
         <AntDesign name="hearto" size={20} color="gray" style={styles.icon} />
         <FontAwesome5
