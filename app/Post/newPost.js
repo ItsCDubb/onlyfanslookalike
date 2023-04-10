@@ -10,7 +10,7 @@ import { useState } from "react";
 import { Feather, Ionicons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import { useRouter } from "expo-router";
-import styles from "../styles";
+import styles from "./styles";
 
 const NewPost = () => {
   const [text, setText] = useState("");
@@ -59,7 +59,7 @@ const NewPost = () => {
         multiline
         numberOfLines={3}
       />
-      <View style={styles.iconContainer}>
+      <View style={styles.iconRow}>
         <Feather onPress={selectImage} name="image" size={24} color="gray" />
       </View>
       {image && <Image src={image} style={{ width: "100%", aspectRatio: 1 }} />}

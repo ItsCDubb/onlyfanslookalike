@@ -4,7 +4,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     margin: 10,
   },
-  iconContainer: {
+  iconRow: {
     marginVertical: 15,
   },
 });
