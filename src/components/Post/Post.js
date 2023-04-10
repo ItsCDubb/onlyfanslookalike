@@ -1,15 +1,21 @@
 import { Image, Text, View } from "react-native";
 import { AntDesign, Entypo, FontAwesome5 } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
-import { DataStore } from "aws-amplify";
+import { DataStore, Storage } from "aws-amplify";
 import { User } from "../../models";
 import styles from "./styles";
 
 const Post = ({ post }) => {
   const [user, setUser] = useState();
+  const { imageUri, setImageUri } = useState();
   useEffect(() => {
     DataStore.query(User, post.userID).then(setUser);
   }, []);
+  useEffect(() => {
+    if (post.image) {
+      Storage.get(post.image).then(setImageUri);
+    }
+  }, [post.image]);
   return (
     <View style={styles.postPageContainer}>
       <View style={styles.postContainer}>
@@ -24,7 +30,7 @@ const Post = ({ post }) => {
         </View>
       </View>
       <Text style={styles.description}>{post.text}</Text>
-      {post.image && <Image src={post.image} style={styles.postImage} />}
+      {imageUri && <Image src={imageUri} style={styles.postImage} />}
       <View style={styles.postIcons}>
         <AntDesign name="hearto" size={20} color="gray" style={styles.icon} />
         <FontAwesome5
