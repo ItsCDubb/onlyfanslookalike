@@ -45,7 +45,9 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   icon: {
+    color: "gray",
     marginRight: 15,
+    fontSize: 20,
   },
   postLikes: {
     marginHorizontal: 10,

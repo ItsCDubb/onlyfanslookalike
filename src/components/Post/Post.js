@@ -7,7 +7,7 @@ import styles from "./styles";
 
 const Post = ({ post }) => {
   const [user, setUser] = useState();
-  const { imageUri, setImageUri } = useState();
+  const [imageUri, setImageUri] = useState();
   useEffect(() => {
     DataStore.query(User, post.userID).then(setUser);
   }, []);
@@ -16,6 +16,7 @@ const Post = ({ post }) => {
       Storage.get(post.image).then(setImageUri);
     }
   }, [post.image]);
+  console.log(JSON.stringify(imageUri, null, 2));
   return (
     <View style={styles.postPageContainer}>
       <View style={styles.postContainer}>
@@ -32,13 +33,8 @@ const Post = ({ post }) => {
       <Text style={styles.description}>{post.text}</Text>
       {imageUri && <Image src={imageUri} style={styles.postImage} />}
       <View style={styles.postIcons}>
-        <AntDesign name="hearto" size={20} color="gray" style={styles.icon} />
-        <FontAwesome5
-          name="dollar-sign"
-          size={20}
-          color="gray"
-          style={styles.icon}
-        />
+        <AntDesign name="hearto" style={styles.icon} />
+        <FontAwesome5 name="dollar-sign" style={styles.icon} />
       </View>
       <Text style={styles.postLikes}>{post.likes} Likes</Text>
     </View>
